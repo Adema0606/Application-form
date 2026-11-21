@@ -15,5 +15,4 @@ function renderTickets() {
     ticketList.append(li);
 });
 }
-
 renderTickets();

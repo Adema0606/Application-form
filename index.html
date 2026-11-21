@@ -1,11 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Доска заявок учебного корпуса</title>
 </head>
 <body>
-    
+  <div class="container">
+    <h1>Заявки корпуса</h1>
+    <div class="form-box">
+      <div class="field">
+        <label for="ticketTitle">Что случилось?</label>
+        <input id="ticketTitle" type="text">
+      </div>
+      
+      <div class="field">
+        <label for="ticketRoom">Где?</label>
+        <input id="ticketRoom" type="text">
+      </div>
+
+      <div class="field">
+        <label for="ticketCategory">Категория</label>
+        <select id="ticketCategory">
+          <option value="">Выберите категорию</option>
+          <option value="Оборудование">Оборудование</option>
+          <option value="Аудитория">Аудитория</option>
+          <option value="Другое">Другое</option>
+        </select>
+      </div>
+
+      <button id="addTicket">Добавить заявку</button>
+      <p id="message"></p>
+    </div>
+
+    <ul id="ticketList"></ul>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
