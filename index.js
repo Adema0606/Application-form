@@ -36,3 +36,36 @@ function renderTickets() {
 }
 
 renderTickets();
+
+
+const ticketTitle = document.getElementById('ticketTitle');
+const ticketRoom = document.getElementById('ticketRoom');
+const ticketCategory = document.getElementById('ticketCategory');
+const addTicketBtn = document.getElementById('addTicket');
+const message = document.getElementById('message');
+
+addTicketBtn.addEventListener('click', () => {
+  const title = ticketTitle.value.trim();
+  const room = ticketRoom.value.trim();
+  const category = ticketCategory.value;
+
+  if (title === '' || room === '' || category === '') {
+    message.textContent = 'Заполните все поля!';
+    return;
+  }
+
+  const newTicket = {
+    title: title,
+    room: room,
+    category: category,
+    done: false
+  };
+
+  tickets.push(newTicket);
+  renderTickets();
+
+  ticketTitle.value = '';
+  ticketRoom.value = '';
+  ticketCategory.value = '';
+  message.textContent = '';
+});
