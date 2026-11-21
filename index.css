@@ -72,3 +72,6 @@ button {
 .status-open { color: #007bff; font-weight: bold; }
 .status-done { color: #28a745; font-weight: bold; }
 
+.btn-group { margin-top: 10px; }
+.btn-done { background: #24b145; margin-right: 5px; }
+.btn-delete { background: #dc3545; }
