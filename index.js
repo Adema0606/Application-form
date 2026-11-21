@@ -9,7 +9,7 @@ const ticketList = document.getElementById('ticketList');
 function renderTickets() {
   ticketList.innerHTML = '';
 
-  tickets.forEach((ticket) => {
+  tickets.forEach((ticket, index) => {
     const li = document.createElement('li');
     
     const titleSpan = document.createElement('span');
@@ -31,6 +31,31 @@ function renderTickets() {
 
     infoSpan.append(statusSpan);
     li.append(titleSpan, infoSpan);
+
+    const btnGroup = document.createElement('div');
+    btnGroup.className = 'btn-group';
+
+    if (ticket.done === false) {
+      const doneBtn = document.createElement('button');
+      doneBtn.className = 'btn-done';
+      doneBtn.textContent = 'Выполнить';
+      doneBtn.addEventListener('click', () => {
+        ticket.done = true;
+        renderTickets();
+      });
+      btnGroup.append(doneBtn);
+    }
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn-delete';
+    deleteBtn.textContent = 'Удалить';
+    deleteBtn.addEventListener('click', () => {
+      tickets.splice(index, 1);
+      renderTickets();
+    });
+    
+    btnGroup.append(deleteBtn);
+    li.append(btnGroup);
     ticketList.append(li);
   });
 }
@@ -69,3 +94,9 @@ addTicketBtn.addEventListener('click', () => {
   ticketCategory.value = '';
   message.textContent = '';
 });
+
+
+
+
+
+
