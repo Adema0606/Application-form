@@ -5,11 +5,25 @@ const tickets = [
 ];
 
 const ticketList = document.getElementById('ticketList');
+const ticketTitle = document.getElementById('ticketTitle');
+const ticketRoom = document.getElementById('ticketRoom');
+const ticketCategory = document.getElementById('ticketCategory');
+const addTicketBtn = document.getElementById('addTicket');
+const message = document.getElementById('message');
+const onlyOpen = document.getElementById('onlyOpen');
 
 function renderTickets() {
   ticketList.innerHTML = '';
+  let count = 0;
+  let hasTickets = tickets.length > 0;
 
   tickets.forEach((ticket, index) => {
+    if (onlyOpen.checked && ticket.done === true) {
+      return;
+    }
+
+    count = count + 1;
+    
     const li = document.createElement('li');
     
     const titleSpan = document.createElement('span');
@@ -58,16 +72,17 @@ function renderTickets() {
     li.append(btnGroup);
     ticketList.append(li);
   });
+
+  if (count === 0) {
+    const li = document.createElement('li');
+    if (!hasTickets) {
+      li.textContent = 'Заявок пока нет';
+    } else {
+      li.textContent = 'Открытых заявок нет';
+    }
+    ticketList.append(li);
+  }
 }
-
-renderTickets();
-
-
-const ticketTitle = document.getElementById('ticketTitle');
-const ticketRoom = document.getElementById('ticketRoom');
-const ticketCategory = document.getElementById('ticketCategory');
-const addTicketBtn = document.getElementById('addTicket');
-const message = document.getElementById('message');
 
 addTicketBtn.addEventListener('click', () => {
   const title = ticketTitle.value.trim();
@@ -95,8 +110,6 @@ addTicketBtn.addEventListener('click', () => {
   message.textContent = '';
 });
 
+onlyOpen.addEventListener('change', renderTickets);
 
-
-
-
-
+renderTickets();
