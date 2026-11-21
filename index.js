@@ -11,8 +11,28 @@ function renderTickets() {
 
   tickets.forEach((ticket) => {
     const li = document.createElement('li');
-    li.textContent = ticket.title + ' | ' + ticket.room + ' | ' + ticket.category;
+    
+    const titleSpan = document.createElement('span');
+    titleSpan.className = 'ticket-title';
+    titleSpan.textContent = ticket.title;
+
+    const infoSpan = document.createElement('span');
+    infoSpan.className = 'ticket-info';
+    infoSpan.textContent = 'Где: ' + ticket.room + ' | Категория: ' + ticket.category + ' | ';
+
+    const statusSpan = document.createElement('span');
+    if (ticket.done) {
+      statusSpan.className = 'status-done';
+      statusSpan.textContent = 'Выполнена';
+    } else {
+      statusSpan.className = 'status-open';
+      statusSpan.textContent = 'Открыта';
+    }
+
+    infoSpan.append(statusSpan);
+    li.append(titleSpan, infoSpan);
     ticketList.append(li);
-});
+  });
 }
+
 renderTickets();
