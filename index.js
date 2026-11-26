@@ -11,6 +11,7 @@ const ticketCategory = document.getElementById('ticketCategory');
 const addTicketBtn = document.getElementById('addTicket');
 const message = document.getElementById('message');
 const onlyOpen = document.getElementById('onlyOpen');
+const categoryFilter = document.getElementById('categoryFilter');
 
 function renderTickets() {
   ticketList.innerHTML = '';
@@ -19,6 +20,10 @@ function renderTickets() {
 
   tickets.forEach((ticket, index) => {
     if (onlyOpen.checked && ticket.done === true) {
+      return;
+    }
+    
+    if (categoryFilter.value !== 'all' && ticket.category !== categoryFilter.value) { 
       return;
     }
 
@@ -37,7 +42,7 @@ function renderTickets() {
     const statusSpan = document.createElement('span');
     if (ticket.done) {
       statusSpan.className = 'status-done';
-      statusSpan.textContent = 'Выполнена';
+      statusSpan.textContent = 'Выпол';
     } else {
       statusSpan.className = 'status-open';
       statusSpan.textContent = 'Открыта';
@@ -77,8 +82,10 @@ function renderTickets() {
     const li = document.createElement('li');
     if (!hasTickets) {
       li.textContent = 'Заявок пока нет';
-    } else {
+    } else if (onlyOpen.checked && categoryFilter.value === 'all') {
       li.textContent = 'Открытых заявок нет';
+    } else {
+      li.textContent = 'Нет заявок по выбранным фильтрам';
     }
     ticketList.append(li);
   }
@@ -111,5 +118,6 @@ addTicketBtn.addEventListener('click', () => {
 });
 
 onlyOpen.addEventListener('change', renderTickets);
+categoryFilter.addEventListener('change', renderTickets);
 
 renderTickets();
