@@ -47,7 +47,7 @@ function renderTickets() {
     const statusSpan = document.createElement('span');
     if (ticket.done) {
       statusSpan.className = 'status-done';
-      statusSpan.textContent = 'Выполнить';
+      statusSpan.textContent = 'Выполнено';
     } else {
       statusSpan.className = 'status-open';
       statusSpan.textContent = 'Открыта';
@@ -132,9 +132,9 @@ onlyOpen.addEventListener('change', () => {
   renderTickets();
 });
 
-onlyOpen.addEventListener('change', () => {
-  if (onlyOpen.checked) {
-    onlyClosed.checked = false;
+onlyClosed.addEventListener('change', () => {
+  if (onlyClosed.checked) {
+    onlyOpen.checked = false;
   }
   renderTickets();
 });
