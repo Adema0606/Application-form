@@ -11,6 +11,7 @@ const ticketCategory = document.getElementById('ticketCategory');
 const addTicketBtn = document.getElementById('addTicket');
 const message = document.getElementById('message');
 const onlyOpen = document.getElementById('onlyOpen');
+const onlyClosed = document.getElementById('onlyClosed');
 const categoryFilter = document.getElementById('categoryFilter');
 
 function renderTickets() {
@@ -22,6 +23,10 @@ function renderTickets() {
     if (onlyOpen.checked && ticket.done === true) {
       return;
     }
+    if (onlyClosed.checked && ticket.done === false) {
+      return;
+    }
+    
     
     if (categoryFilter.value !== 'all' && ticket.category !== categoryFilter.value) { 
       return;
@@ -42,7 +47,7 @@ function renderTickets() {
     const statusSpan = document.createElement('span');
     if (ticket.done) {
       statusSpan.className = 'status-done';
-      statusSpan.textContent = 'Выпол';
+      statusSpan.textContent = 'Выполнить';
     } else {
       statusSpan.className = 'status-open';
       statusSpan.textContent = 'Открыта';
@@ -84,6 +89,8 @@ function renderTickets() {
       li.textContent = 'Заявок пока нет';
     } else if (onlyOpen.checked && categoryFilter.value === 'all') {
       li.textContent = 'Открытых заявок нет';
+    } else if (onlyClosed.checked && categoryFilter.value === 'all') {
+      li.textContent = 'Выполненных заявок нет';
     } else {
       li.textContent = 'Нет заявок по выбранным фильтрам';
     }
@@ -117,7 +124,23 @@ addTicketBtn.addEventListener('click', () => {
   message.textContent = '';
 });
 
-onlyOpen.addEventListener('change', renderTickets);
+
+onlyOpen.addEventListener('change', () => {
+  if (onlyOpen.checked) {
+    onlyClosed.checked = false;
+  }
+  renderTickets();
+});
+
+onlyOpen.addEventListener('change', () => {
+  if (onlyOpen.checked) {
+    onlyClosed.checked = false;
+  }
+  renderTickets();
+});
+
 categoryFilter.addEventListener('change', renderTickets);
 
 renderTickets();
+
+//добавить чекбок которые показывает только закрытые и чтобы нельзябыло нажать сразу открытые и закрытые 
